@@ -8,16 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var howManyQuestionsArray = [5, 10, 20]
-    @State private var multiplicationTable = 0
-    @State private var howManyQuestions = 0
-    @State private var isNotDisabled = false
+    @State private var questionNumberOptions = [5, 10, 20]
+    @State private var chosenTable = 0
+    @State private var QuestionsNumber = 0
     @State private var showingConfigurationAlert = false
+    @State private var showingQuestions = false
     @State private var configurationMessage = ""
-//    @State private var questions = [(number1: Int, number2: Int)]()
-//    @State private var results = [Int]()
-//    @State private var checks = [(imageName: String, imageColor: Color)]()
-//    @FocusState private var isFocused: Bool
     
     var body: some View {
         NavigationView {
@@ -39,8 +35,7 @@ struct ContentView: View {
                             Spacer()
                             ForEach(2..<8) { table in
                                 Button("\(table)") {
-                                    multiplicationTable = table
-                                    if howManyQuestions != 0 { isNotDisabled = true }
+                                    chosenTable = table
                                 }
                                 .buttonStyle(BlueButtonStyle())
                             }
@@ -51,8 +46,7 @@ struct ContentView: View {
                             Spacer()
                             ForEach(8..<13) { table in
                                 Button("\(table)") {
-                                    multiplicationTable = table
-                                    if howManyQuestions != 0 { isNotDisabled = true }
+                                    chosenTable = table
                                 }
                                 .buttonStyle(BlueButtonStyle())
                             }
@@ -65,10 +59,9 @@ struct ContentView: View {
                     Section("How many questions?") {
                         HStack{
                             Spacer()
-                            ForEach(howManyQuestionsArray, id: \.self) { howManyQuestions in
+                            ForEach(questionNumberOptions, id: \.self) { howManyQuestions in
                                 Button("\(howManyQuestions)") {
-                                    self.howManyQuestions = howManyQuestions
-                                    if multiplicationTable != 0 { isNotDisabled = true }
+                                    self.QuestionsNumber = howManyQuestions
 
                                 }
                                 .buttonStyle(GreenButtonStyle())
@@ -84,17 +77,16 @@ struct ContentView: View {
                     Section {
                         HStack {
                             Spacer()
-                            NavigationLink(destination: QuestionsView(multiplicationTable, howManyQuestions)) {
-                                Button("Start") {
-                                    if multiplicationTable == 0 {
-                                        configurationMessage = "Please choose a multiplication table."
-                                        showingConfigurationAlert = true
-                                    } else if howManyQuestions == 0 {
-                                        configurationMessage = "Please choose the number of questions."
-                                        showingConfigurationAlert = true
-                                    }
+                            Button("Start") {
+                                if chosenTable == 0 {
+                                    configurationMessage = "Please choose a multiplication table."
+                                    showingConfigurationAlert = true
+                                } else if QuestionsNumber == 0 {
+                                    configurationMessage = "Please choose the number of questions."
+                                    showingConfigurationAlert = true
                                 }
-                                .disabled(isNotDisabled)
+                                
+                                showingQuestions = true
                             }
                             Spacer()
                         }
@@ -109,6 +101,9 @@ struct ContentView: View {
             Button("OK") { }
         } message: {
             Text(configurationMessage)
+        }
+        .sheet(isPresented: $showingQuestions) {
+            QuestionsView(chosenTable, QuestionsNumber)
         }
     }
 }

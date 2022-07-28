@@ -20,6 +20,10 @@ struct QuestionsView: View {
     init(_ multiplicationTable: Int, _ howManyQuestions: Int) {
         self.multiplicationTable = multiplicationTable
         self.howManyQuestions = howManyQuestions
+        
+        print(multiplicationTable, howManyQuestions)
+        
+        configureList(multiplicationTable, howManyQuestions)
     }
     
     var body: some View {
@@ -27,10 +31,10 @@ struct QuestionsView: View {
             List {
                 ForEach(0..<howManyQuestions, id: \.self) { i in
                      HStack {
-/*                        Text("\(questions[i].number1) x \(questions[i].number2)")
+                        Text("\(questions[i].number1) x \(questions[i].number2)")
                             .font(.callout.bold())
                             .frame(width: 55, height: 30)
-                            .cornerRadius(5)*/
+                            .cornerRadius(5)
                         
                         Text("=")
                             .font(.callout.bold())
@@ -77,9 +81,6 @@ struct QuestionsView: View {
         } message: {
             Text("Your score was \(score)")
         }
-        .onAppear {
-            configureList(multiplicationTable, howManyQuestions)
-        }
         .toolbar {
             ToolbarItemGroup(placement: .keyboard) {
                 Spacer()
@@ -96,12 +97,19 @@ struct QuestionsView: View {
         self.checks.removeAll()
         self.results.removeAll()
         
+        print(table)
+        print(howManyQuestions)
+        
+
         for _ in 0..<howManyQuestions {
             results.append(0)
             checks.append((imageName: "circle", imageColor: Color.primary))
             questions.append((number1: table, number2: Int.random(in: 2...12)))
             
+            print(questions)
         }
+        
+        
     }
     
     func checkAnswers() {
