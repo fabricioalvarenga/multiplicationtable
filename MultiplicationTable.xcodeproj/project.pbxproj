@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2099F5BE2891D4C000D104E4 /* Styles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2099F5BD2891D4C000D104E4 /* Styles.swift */; };
+		2099F5C02891D50B00D104E4 /* QuestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2099F5BF2891D50B00D104E4 /* QuestionsView.swift */; };
 		20B83206288C1CDF00CC6E0C /* MultiplicationTableApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B83205288C1CDF00CC6E0C /* MultiplicationTableApp.swift */; };
 		20B83208288C1CDF00CC6E0C /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20B83207288C1CDF00CC6E0C /* ContentView.swift */; };
 		20B8320A288C1CDF00CC6E0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 20B83209288C1CDF00CC6E0C /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2099F5BD2891D4C000D104E4 /* Styles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Styles.swift; sourceTree = "<group>"; };
+		2099F5BF2891D50B00D104E4 /* QuestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsView.swift; sourceTree = "<group>"; };
 		20B83202288C1CDF00CC6E0C /* MultiplicationTable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiplicationTable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B83205288C1CDF00CC6E0C /* MultiplicationTableApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplicationTableApp.swift; sourceTree = "<group>"; };
 		20B83207288C1CDF00CC6E0C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -53,6 +57,8 @@
 			children = (
 				20B83205288C1CDF00CC6E0C /* MultiplicationTableApp.swift */,
 				20B83207288C1CDF00CC6E0C /* ContentView.swift */,
+				2099F5BF2891D50B00D104E4 /* QuestionsView.swift */,
+				2099F5BD2891D4C000D104E4 /* Styles.swift */,
 				20B83209288C1CDF00CC6E0C /* Assets.xcassets */,
 				20B8320B288C1CDF00CC6E0C /* Preview Content */,
 			);
@@ -137,6 +143,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2099F5BE2891D4C000D104E4 /* Styles.swift in Sources */,
+				2099F5C02891D50B00D104E4 /* QuestionsView.swift in Sources */,
 				20B83208288C1CDF00CC6E0C /* ContentView.swift in Sources */,
 				20B83206288C1CDF00CC6E0C /* MultiplicationTableApp.swift in Sources */,
 			);
