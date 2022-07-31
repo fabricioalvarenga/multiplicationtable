@@ -8,13 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var questionNumberOptions = [5, 10, 20]
-    @State private var chosenTable = 0
-    @State private var QuestionsNumber = 0
+    @StateObject var game = GameViewModel()
     @State private var showingConfigurationAlert = false
     @State private var showingQuestions = false
-    @State private var configurationMessage = ""
-    
+
+    private let questionsNumberOptions = [5, 10, 20]
+
     var body: some View {
         NavigationView {
             ZStack {
@@ -33,22 +32,18 @@ struct ContentView: View {
                     Section("Chose the multiplication table") {
                         HStack {
                             Spacer()
-                            ForEach(2..<8) { table in
-                                Button("\(table)") {
-                                    chosenTable = table
-                                }
-                                .buttonStyle(BlueButtonStyle())
+                            ForEach(2..<8) { t in
+                                Button("\(t)") { game.viewModel.chosenTable = t }
+                                    .buttonStyle(BlueButtonStyle())
                             }
                             Spacer()
                         }
                         
-                        HStack {
+                       HStack {
                             Spacer()
-                            ForEach(8..<13) { table in
-                                Button("\(table)") {
-                                    chosenTable = table
-                                }
-                                .buttonStyle(BlueButtonStyle())
+                            ForEach(8..<13) { t in
+                                Button("\(t)") { game.viewModel.chosenTable = t }
+                                    .buttonStyle(BlueButtonStyle())
                             }
                             Spacer()
                         }
@@ -59,17 +54,14 @@ struct ContentView: View {
                     Section("How many questions?") {
                         HStack{
                             Spacer()
-                            ForEach(questionNumberOptions, id: \.self) { howManyQuestions in
-                                Button("\(howManyQuestions)") {
-                                    self.QuestionsNumber = howManyQuestions
-
-                                }
-                                .buttonStyle(GreenButtonStyle())
+                            ForEach(questionsNumberOptions, id: \.self) { q in
+                                Button("\(q)") { game.viewModel.questionsNumber = q }
+                                    .buttonStyle(GreenButtonStyle())
                             }
                             Spacer()
                         }
                     }
-                    
+              
                     Spacer()
                     Spacer()
                     Spacer()
@@ -78,15 +70,8 @@ struct ContentView: View {
                         HStack {
                             Spacer()
                             Button("Start") {
-                                if chosenTable == 0 {
-                                    configurationMessage = "Please choose a multiplication table."
-                                    showingConfigurationAlert = true
-                                } else if QuestionsNumber == 0 {
-                                    configurationMessage = "Please choose the number of questions."
-                                    showingConfigurationAlert = true
-                                }
-                                
-                                showingQuestions = true
+                                showingQuestions = game.configFinished()
+                                showingConfigurationAlert = !showingQuestions
                             }
                             Spacer()
                         }
@@ -100,10 +85,10 @@ struct ContentView: View {
         .alert("Configure the game", isPresented: $showingConfigurationAlert) {
             Button("OK") { }
         } message: {
-            Text(configurationMessage)
+            Text(game.viewModel.needToConfigMessage)
         }
         .sheet(isPresented: $showingQuestions) {
-            QuestionsView(chosenTable, QuestionsNumber)
+            QuestionsView(game: game)
         }
     }
 }
