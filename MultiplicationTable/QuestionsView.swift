@@ -90,10 +90,10 @@ struct QuestionsView: View {
         .onAppear {
             game.makeQuestions()
         }
-/*        .alert((game.score > 0) ? "Congratulations" : "Too bad", isPresented: $showingScore) {
+        .alert((game.viewModel.score > 0) ? "Congratulations" : "Too bad", isPresented: $game.viewModel.showingScore) {
             Button("OK") { }
         } message: {
-            Text("Your score was \(game.score)")
-        }*/
+            Text("Your score was \(game.viewModel.score)")
+        }
     }
 }
