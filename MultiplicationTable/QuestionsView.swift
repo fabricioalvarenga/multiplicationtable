@@ -18,12 +18,14 @@ struct QuestionsView: View {
                 Rectangle()
                     .foregroundColor(Color(red: 0.08084135503, green: 0.03221104667, blue: 1))
                     .edgesIgnoringSafeArea(.all)
+                    .opacity(0.5)
                 
                 Rectangle()
                     .foregroundColor(Color(red: 0.2173289955, green: 0.5304813385, blue: 1))
                     .rotationEffect(Angle(degrees: 45))
                     .edgesIgnoringSafeArea(.all)
-                
+                    .opacity(0.5)
+
                 VStack {
                     List {
                         ForEach(0..<(game.viewModel.questionsNumber ?? 5), id: \.self) { i in
@@ -42,11 +44,12 @@ struct QuestionsView: View {
                                     .keyboardType(.numberPad)
                                     .font(.callout.bold())
                                     .frame(height: 30)
-                                    .background(Color(UIColor.lightGray))
-                                    .foregroundColor(.white)
-                                    .cornerRadius(5)
+                                    .overlay(RoundedRectangle(cornerRadius: 5)
+                                        .stroke(lineWidth: 1)
+                                        .stroke(Color.primary)
+                                    )
                                     .focused($isFocused)
-                                
+
                                 Image(systemName: game.viewModel.checks[i].imageName)
                                     .font(.title)
                                     .foregroundColor(game.viewModel.checks[i].imageColor)
@@ -62,28 +65,23 @@ struct QuestionsView: View {
                     Section {
                         HStack {
                             Spacer()
-                            Button("Check") {
-                                game.checkAnswers()
-                            }
+                            Button("Check") { game.checkAnswers() }
                             Spacer()
-                            Button("Back") {
-                                dismiss()
-                            }
+                            Button("Back") { dismiss() }
                             Spacer()
                         }
                         .buttonStyle(PillButtonStyle())
                     }
                     .padding()
                 }
+                .clipped(antialiased: true)
             }
             .navigationBarTitle("Multiplication Table")
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItemGroup(placement: .keyboard) {
                     Spacer()
-                    Button("Done") {
-                        isFocused = false
-                    }
+                    Button("Done") { isFocused = false }
                 }
             }
         }

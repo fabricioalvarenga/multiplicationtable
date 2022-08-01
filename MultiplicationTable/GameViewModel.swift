@@ -57,6 +57,7 @@ final class GameViewModel: ObservableObject {
         
         for i in 0..<questionsNumber {
             let result = viewModel.questions[i].number1 * viewModel.questions[i].number2
+
             if viewModel.results[i] == result {
                 viewModel.checks[i].imageName = "hand.thumbsup.circle"
                 viewModel.checks[i].imageColor = Color.green
